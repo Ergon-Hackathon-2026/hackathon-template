@@ -49,10 +49,3 @@ force-app/main/default/staticresources/**/dist/
 
 # LWC Jest coverage reports
 coverage/
-
-# Eslint cache
-.eslintcache
-new-salesforce.code-workspace
-package.json
-package-lock.json
-package.json
