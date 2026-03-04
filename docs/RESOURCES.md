@@ -67,6 +67,18 @@ Use these tools rather than manually recreating components in the UI.
 
 ---
 
+## Git/GitHub Setup (Committing and Pushing)
+
+You will use GitHub to save your work and share changes with your teammates.
+
+When you are ready to commit your changes (after deploying/syncing them to the org), follow this step-by-step guide:
+
+- [How to Commit and Push Changes to GitHub from Agentforce Vibes (Scribe)](https://scribehow.com/viewer/How_to_Commit_and_Push_Changes_to_GitHub_from_Agentforce_Vibes__yAQBfOdsTSm8HqJpw21s4g)
+
+**Tip:** Commit and push regularly (small, focused changes) to reduce merge conflicts and keep your team in sync.
+
+---
+
 ## Creating Apex Classes
 
 To create an Apex class:
@@ -208,6 +220,63 @@ Documentation:
 
 - [SOQL and SOSL Reference](https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/)
 - [Query Optimization Tips](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_SOQL_VLSQ.htm)
+
+---
+
+## SOQL Validation (Step 6) and Guardrails (Step 7)
+
+A key requirement in this challenge is to **validate SOQL before saving**. The safest “beginner-friendly” way to validate is to **attempt to execute the query with strict guardrails**, and treat any `QueryException` as a validation failure.
+
+### Recommended validation approach (execute safely)
+
+- Try to validate by executing safely
+  - If the query already has a `LIMIT`, keep it, but **cap it** (example: `LIMIT 200` becomes `LIMIT 5`)
+  - If it doesn’t, either:
+    - **Reject it** (“Query must include LIMIT”) — simplest and safest
+    - **OR** append `LIMIT 1` for friendlier UX (but note: this slightly changes the user’s exact string)
+
+Then:
+
+- Run `Database.query(queryString)` inside `try/catch (QueryException e)`
+- Return:
+  - `isValid` (true/false)
+  - `message` (exception message or “Valid”)
+  - optionally an error position if you can extract it from the exception text
+
+### Practical guardrails to enforce
+
+Before running validation, enforce guardrails such as:
+
+- Block dangerous keywords/patterns (examples):
+  - `FOR UPDATE`
+  - `ALL ROWS`
+  - `WITH SYSTEM_MODE`
+  - `WITH USER_MODE`
+- Enforce a maximum `LIMIT` during validation (example: `LIMIT 1` or `LIMIT 5`)
+- Consider rejecting queries that don’t start with `SELECT`
+- Prefer validating against the selected `SObjectApiName__c` (if your UX collects it)
+
+> Note: Salesforce does not provide a “parse-only” SOQL validator in Apex. If you call `Database.query(...)`, it will compile and execute the query — which is why the guardrails above matter.
+
+### Example Apex pattern (simplified)
+
+Use an Apex method that accepts the query string, enforces a limit, and returns a simple result object.
+
+- Catch `QueryException` and return a user-friendly message.
+- For preview/result-returning features, also enforce security (CRUD/FLS) before returning any records.
+
+(See the “Practical LWC & Apex Cheat Sheet” section below for links to `Database.query`, `Schema` describe, and `Security.stripInaccessible`.)
+
+### UX tip
+
+A clean UX is:
+
+1. User enters SOQL
+2. User clicks **Validate**
+3. UI shows “Valid” or the validation error message
+4. **Save is disabled** until validation succeeds
+
+This keeps the validation outcome unambiguous and matches the challenge requirements.
 
 ---
 
