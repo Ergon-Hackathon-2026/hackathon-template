@@ -4,6 +4,8 @@ Welcome to the QueryVault hackathon starter repository.
 
 This repository contains the baseline structure for the Ergon Hackathon 2026 challenge. Your team is responsible for implementing the solution described in the official challenge document.
 
+Click [here](https://scribehow.com/viewer/Open_Agentforce_Vibes_IDE__fUjVOEdJTXajQBSSVDUrxg) to learn how to open Agentforce Vibes and begin working!
+
 ---
 
 ## 📘 Challenge Overview
@@ -36,6 +38,16 @@ If you are new to Salesforce development, start here:
 - `docs/RESOURCES.md`
 
 This file contains curated platform documentation and ramp-up materials.
+
+---
+
+## 📊 Seed Data
+
+The sample data used to populate the `UsefulQuery__c` object can be found here:
+
+[UsefulQuery Seed Data (Excel)](https://ergonus.sharepoint.com/:x:/s/ErgonsSalesForceSite/IQB_fsP0NFekRq4WVwMQmSu9AXJ9tvZ2qcS-K2QqFZY2QIE?e=AAfaaI)
+
+You may use this file to manually create records, import via Salesforce Inspector, or load using Data Loader.
 
 ---
 

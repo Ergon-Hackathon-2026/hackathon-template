@@ -1,39 +1,37 @@
 # Ergon Hackathon 2026 – QueryVault Challenge
 
 - [Ergon Hackathon 2026 – QueryVault Challenge](#ergon-hackathon-2026--queryvault-challenge)
-    - [Scenario](#scenario)
-    - [Data Model Requirements](#data-model-requirements)
-        - [1 Create the Core Custom Object](#1-create-the-core-custom-object)
-        - [2 Required Fields and Intended Meaning](#2-required-fields-and-intended-meaning)
-    - [App and UX Requirements (LWC)](#app-and-ux-requirements-lwc)
-        - [3 Provide a Library Experience (Browse + Find)](#3-provide-a-library-experience-browse--find)
-        - [4 Provide a Query Create/Edit Experience](#4-provide-a-query-createedit-experience)
-        - [5 SObject Name Selection](#5-sobject-name-selection)
-    - [Validation Requirements](#validation-requirements)
-        - [6 Validate SOQL Syntax Before Save](#6-validate-soql-syntax-before-save)
-        - [7 Prevent Harmful or Unbounded Validation Runs](#7-prevent-harmful-or-unbounded-validation-runs)
-    - [CRUD Requirements](#crud-requirements)
-        - [8 Create Records (CRUD: “C”)](#8-create-records-crud-c)
-        - [9 Read Records (CRUD: “R”)](#9-read-records-crud-r)
-        - [10 Update Records (CRUD: “U”)](#10-update-records-crud-u)
-        - [11 Delete Records (CRUD: “D”)](#11-delete-records-crud-d)
-    - [Security \& Access Requirements](#security--access-requirements)
-        - [12 Enforce Access via Permission Sets](#12-enforce-access-via-permission-sets)
-        - [13 Respect Object Access When Surfacing SObjects](#13-respect-object-access-when-surfacing-sobjects)
-    - [Quality Requirements](#quality-requirements)
-        - [14 Deliver Seed Data for Demo](#14-deliver-seed-data-for-demo)
-        - [15 Provide a Minimal “How to Use” Guide](#15-provide-a-minimal-how-to-use-guide)
-    - [MVP+ Requirements (Optional)](#mvp-requirements-optional)
-        - [S1 “Run Preview” (Safe Sample Execution)](#s1-run-preview-safe-sample-execution)
-        - [S2 Pagination \& Performance Scaling](#s2-pagination--performance-scaling)
-        - [S3 Organized Query Library](#s3-organized-query-library)
-        - [S4 Bulk Data Handling](#s4-bulk-data-handling)
-    - [MVP++ Requirements (Optional)](#mvp-requirements-optional-1)
-        - [A1 Usage Analytics](#a1-usage-analytics)
-        - [A2 Enhanced Object Design](#a2-enhanced-object-design)
-        - [A3 Advanced UX Pattern](#a3-advanced-ux-pattern)
-    - [Submission Checklist (What “Done” Looks Like)](#submission-checklist-what-done-looks-like)
-    - [Technical Resources](#technical-resources)
+  - [Scenario](#scenario)
+  - [Data Model Requirements](#data-model-requirements)
+    - [1 Create the Core Custom Object](#1-create-the-core-custom-object)
+    - [2 Required Fields and Intended Meaning](#2-required-fields-and-intended-meaning)
+  - [App and UX Requirements (LWC)](#app-and-ux-requirements-lwc)
+    - [3 Provide a Library Experience (Browse + Find)](#3-provide-a-library-experience-browse--find)
+    - [4 Provide a Query Create/Edit Experience](#4-provide-a-query-createedit-experience)
+    - [5 SObject Name Selection on Create or Update](#5-sobject-name-selection-on-create-or-update)
+  - [Validation Requirements](#validation-requirements)
+    - [6 Validate SOQL Syntax Before Save](#6-validate-soql-syntax-before-save)
+    - [7 Prevent Harmful or Unbounded Validation Runs](#7-prevent-harmful-or-unbounded-validation-runs)
+  - [CRED Requirements](#cred-requirements)
+    - [8 Create Records (CRED: “C”)](#8-create-records-cred-c)
+    - [9 Read Records (CRED: “R”)](#9-read-records-cred-r)
+    - [10 Update Records (CRED: “E”)](#10-update-records-cred-e)
+    - [11 Delete Records (CRED: “D”)](#11-delete-records-cred-d)
+  - [Quality Requirements](#quality-requirements)
+    - [12 Deliver Seed Data for Demo](#12-deliver-seed-data-for-demo)
+    - [13 Provide a Minimal “How to Use” Guide](#13-provide-a-minimal-how-to-use-guide)
+  - [MVP+ Requirements (Optional)](#mvp-requirements-optional)
+    - [S1 Enforce Access via Permission Sets](#s1-enforce-access-via-permission-sets)
+    - [S2 “Run Preview” (Safe Sample Execution)](#s2-run-preview-safe-sample-execution)
+    - [S3 Pagination \& Performance Scaling](#s3-pagination--performance-scaling)
+    - [S4 Organized Query Library](#s4-organized-query-library)
+    - [S5 Bulk Data Handling](#s5-bulk-data-handling)
+  - [MVP++ Requirements (Optional)](#mvp-requirements-optional-1)
+    - [A1 Usage Analytics](#a1-usage-analytics)
+    - [A2 Enhanced Object Design](#a2-enhanced-object-design)
+    - [A3 Advanced UX Pattern](#a3-advanced-ux-pattern)
+  - [Submission Checklist (What “Done” Looks Like)](#submission-checklist-what-done-looks-like)
+  - [Technical Resources](#technical-resources)
 
 ---
 
@@ -42,7 +40,7 @@
 > In the event of discrepancies, the official Word document controls.
 >
 > 📄 **Official Problem Statement (Word Doc):**  
-> [Open the official document](https://ergonus-my.sharepoint.com/:w:/g/personal/aberrios_ergon_com/IQDNdQY3qlsVRKyyz4K3b66QASz6lmW6-iEa4dDNHutVQd4?e=r1CFka)
+> [Open the official document](https://ergonus.sharepoint.com/:w:/s/ErgonsSalesForceSite/IQCa248PzDdYQ70zJVkefl6SAbl8oriFrN2kvX1OnEtcU1Q?e=MRhfIf)
 
 ---
 
@@ -80,10 +78,11 @@ Add fields to support naming, reuse, and clarity.
 
 - A required **Name** field exists and is user-meaningful (e.g., “Active Customers by Status”, “Open Cases by Priority and Status”).
 - A required **SOQL field** exists:
-    - Stores the query text (supports multi-line content).
+  - Stores the query text (supports multi-line content).
 - A required **Description field** exists:
-    - Provides verbose context and usage notes (not used as the record’s primary label).
-- A required **SObject API Name field** exists (`SObjectApiName__c`).
+  - Provides verbose context and usage notes (not used as the record’s primary label).
+- A required **SObject API Name field** exists (`SObjectApiName__c`). (Highly recommend using a picklist where the options are all the API names)  
+*Hint: utilize anonymous apex script to gather all object API names and use this to create a new line delineated list to create the values.*
 
 ---
 
@@ -98,9 +97,9 @@ Build an LWC library UI that allows users to discover existing query records qui
 
 - Users can view a list of saved queries.
 - Users can search by at least one of:
-    - Name
-    - Description
-    - SOQL text (optional)
+  - Name
+  - Description
+  - SOQL text (optional)
 - Users can filter by SObject (using the selected object mechanism described below).
 - The list avoids unnecessarily loading heavy content (e.g., SOQL body) for every row unless it’s intentionally displayed.
 
@@ -116,15 +115,17 @@ Build an LWC editor for creating and updating query records.
 - Users can create a new query record from the UI.
 - Users can edit an existing query record from the UI.
 - The editor includes:
-    - Name (required)
-    - Description (required)
-    - SObject selection (required)
-    - SOQL query text (required)
+  - Name (required)
+  - Description (required)
+  - SObject selection (required)
+  - SOQL query text (required)
 - The form UX clearly indicates required fields and prevents incomplete submission.
+
+Hint: utilize lightning record form, individual inputs, or validation rules
 
 ---
 
-### 5 SObject Name Selection
+### 5 SObject Name Selection on Create or Update
 
 **Requirement:**  
 Users must select a valid SObject without typing the API name freehand. This should be done dynamically (e.g., via the Schema class or equivalent dynamic describe approach).
@@ -136,6 +137,8 @@ Users must select a valid SObject without typing the API name freehand. This sho
 - The user cannot save a record with an arbitrary/unknown SObject API Name that was typed manually.
 - The solution works without hardcoding object API names.
 - This requirement intentionally reduces reliance on controller-side Apex logic for “is object valid?” by providing query fetched object names.
+
+*Hint: If you created the picklist in Step 2, this will make your job much easier here.*
 
 ---
 
@@ -156,6 +159,11 @@ When the user attempts to create/save a useful query:
 
 > **Note:** You decide whether validation happens on-demand (“Validate” button) or automatically on Save, but your UX must make the validation outcome unambiguous.
 
+*Hint:*  
+*Highly recommended creating a separate validate button for SOQL validation*  
+*Do not allow users to save record until SOQL is validated*  
+*See resources doc for ideas/ instructions on approaches*
+
 ---
 
 ### 7 Prevent Harmful or Unbounded Validation Runs
@@ -167,16 +175,16 @@ Validation must be safe and performance conscious.
 
 - The validation design does not run an unbounded query that could return massive results.
 - The implementation includes at least one guardrail such as:
-    - Enforcing a maximum row limit during validation
-    - Rejecting unsafe patterns for validation execution
-    - Constraining validation to parse/compile checks rather than full data retrieval
+  - Enforcing a maximum row limit during validation
+  - Rejecting unsafe patterns for validation execution
+  - Constraining validation to parse/compile checks rather than full data retrieval
 - Validation completes quickly for typical inputs.
 
 ---
 
-## CRUD Requirements
+## CRED Requirements
 
-### 8 Create Records (CRUD: “C”)
+### 8 Create Records (CRED: “C”)
 
 **Requirement:**  
 Users can create useful query records from the LWC.
@@ -189,7 +197,7 @@ Users can create useful query records from the LWC.
 
 ---
 
-### 9 Read Records (CRUD: “R”)
+### 9 Read Records (CRED: “R”)
 
 **Requirement:**  
 Users can open and view stored queries.
@@ -198,13 +206,15 @@ Users can open and view stored queries.
 
 - Users can view Name, Description, SObject, and SOQL.
 - Users can copy the SOQL text for reuse.
-    - A copy button (or something similar) must be provided.
-    - Cursor dragging and copying text is not sufficient.
-- View experience is accessible from the library list.
+  - A copy button (or something similar) must be provided.
+  - Cursor dragging and copying text is not sufficient.
+- View experience is accessible from the library list. (See MVP+ for additional ideas here)
+
+*Hint: Create/update UsefulQuery__c Lightning Record Page or see inline options on LWC*
 
 ---
 
-### 10 Update Records (CRUD: “U”)
+### 10 Update Records (CRED: “E”)
 
 **Requirement:**  
 Users can update saved queries and keep them trustworthy.
@@ -217,7 +227,7 @@ Users can update saved queries and keep them trustworthy.
 
 ---
 
-### 11 Delete Records (CRUD: “D”)
+### 11 Delete Records (CRED: “D”)
 
 **Requirement:**  
 Users can delete records with guardrails.
@@ -230,36 +240,9 @@ Users can delete records with guardrails.
 
 ---
 
-## Security & Access Requirements
-
-### 12 Enforce Access via Permission Sets
-
-**Requirement:**  
-Ensure only the right users can create/edit/delete, while others can view.
-
-**Success Criteria**
-
-- At least two access levels are defined (e.g., Viewer vs Editor).
-- Users without edit permissions can still browse and view records but cannot modify them.
-- The app respects object-level CRUD and does not bypass security.
-
----
-
-### 13 Respect Object Access When Surfacing SObjects
-
-**Requirement:**  
-The SObject selection list must be appropriate for the current user context.
-
-**Success Criteria**
-
-- The UI does not present objects the user can’t reasonably interact with (you choose the definition: “readable objects only” is a common approach).
-- If a user somehow references an object they cannot access, the system handles it gracefully (clear message and safe failure).
-
----
-
 ## Quality Requirements
 
-### 14 Deliver Seed Data for Demo
+### 12 Deliver Seed Data for Demo
 
 **Requirement:**  
 Provide sample records demonstrating realistic usage.
@@ -267,19 +250,21 @@ Provide sample records demonstrating realistic usage.
 **Success Criteria**
 
 - At least 10 sample `UsefulQuery__c` records exist (insertable via script, data loader, or manual creation).
-- Records span multiple objects (e.g., Account, Case, Contact, Contract\_\_c, etc.).
+- Records span multiple objects (e.g., Account, Case, Contact, Contract__c, etc.).
 - Records include meaningful Names and Descriptions.
+
+See docs folder in repo for existing queries
 
 ---
 
-### 15 Provide a Minimal “How to Use” Guide
+### 13 Provide a Minimal “How to Use” Guide
 
 **Requirement:**  
 Document how users should use the app.
 
 **Success Criteria**
 
-A short README or internal doc exists describing:
+A short README in the docs folder of the repo or internal doc exists describing:
 
 - What the app is for
 - How to find and copy a query
@@ -290,7 +275,24 @@ A short README or internal doc exists describing:
 
 ## MVP+ Requirements (Optional)
 
-### S1 “Run Preview” (Safe Sample Execution)
+MVP+ (Nice Additions implement in no particular order)
+
+### S1 Enforce Access via Permission Sets
+
+**Requirement:**  
+Ensure only the right users can create/edit/delete, while others can view.
+
+**Success Criteria**
+
+- At least two access levels are defined (e.g., Viewer vs Editor).
+- Users without edit permissions can still browse and view records but cannot modify them.
+- The app respects object-level CRED and does not bypass security.
+
+*Hint:*  
+It is recommended that students create test user accounts that are not admin accounts to test security  
+Highly recommend creating permission sets to administer said security rules
+
+### S2 “Run Preview” (Safe Sample Execution)
 
 **Success Criteria**
 
@@ -299,7 +301,7 @@ A short README or internal doc exists describing:
 
 ---
 
-### S2 Pagination & Performance Scaling
+### S3 Pagination & Performance Scaling
 
 **Success Criteria**
 
@@ -310,7 +312,7 @@ A short README or internal doc exists describing:
 
 ---
 
-### S3 Organized Query Library
+### S4 Organized Query Library
 
 **Success Criteria**
 
@@ -321,10 +323,11 @@ At least one of:
 - Collapsible sections by object
 - Tag-based grouping
 - Category filter component
+- Utilize Salesforce Tree Grid UI Component to load the SOQL on dropdown
 
 ---
 
-### S4 Bulk Data Handling
+### S5 Bulk Data Handling
 
 **Success Criteria**
 
@@ -383,7 +386,7 @@ Teams must justify additional fields in documentation.
 - LWC Library + Editor
 - Assisted SObject selection (MVP)
 - SOQL syntax validation with safety guardrails
-- Full CRUD in UI
+- Full CRED in UI
 - Permission-based access control
 - Demo seed data + minimal guide
 

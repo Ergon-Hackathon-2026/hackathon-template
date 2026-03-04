@@ -111,13 +111,14 @@ Key LWC concepts:
 
 - Components are modular and reactive.
 - Data can be accessed via:
-    - Lightning Data Service
-    - Wire adapters
-    - Imperative Apex methods
+  - Lightning Data Service
+  - Wire adapters
+  - Imperative Apex methods
 - Client-side and server-side code are separated.
 
 Recommended documentation:
 
+- [LWC Basics](https://ergonus.sharepoint.com/:w:/s/ErgonsSalesForceSite/IQDmgYbJLvFNSJ2X7F_wxX-3Aagw3HDdDIni5W2KMlnbAzE?e=CeEAy8)
 - [LWC Developer Guide](https://developer.salesforce.com/docs/component-library/documentation/en/lwc)
 - [Lightning Data Service Overview](https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/data_service.htm)
 - [Wire Service Documentation](https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.apex)
@@ -126,22 +127,71 @@ Recommended documentation:
 
 ## Working with Custom Objects and Fields
 
-When creating custom objects and fields:
+You will need to create and modify custom objects and fields as part of this challenge (for example, `UsefulQuery__c` and its required fields).
 
-1. Define them in metadata.
-2. Deploy to the org.
-3. Confirm field-level security and permissions.
-4. Add them to page layouts if necessary.
+For this challenge, you are encouraged to create objects and fields directly in the Salesforce platform UI.
 
-You can verify objects and fields in:
+---
+
+### Creating a Custom Object (Platform UI)
+
+1. Navigate to **Setup → Object Manager**.
+2. Click **Create → Custom Object**.
+3. Provide:
+    - Label and Plural Label
+    - Object API Name (e.g., `UsefulQuery`)
+    - Record Name configuration (Text is recommended)
+4. Save the object.
+
+---
+
+### Creating Custom Fields
+
+1. Go to **Setup → Object Manager → Your Object**.
+2. Select **Fields & Relationships**.
+3. Click **New**.
+4. Choose the appropriate field type (e.g., Text, Long Text Area, Picklist, Checkbox).
+5. Configure:
+    - Field Label
+    - API Name
+    - Required settings
+    - Field-Level Security (FLS)
+6. Add the field to page layouts.
+
+---
+
+### After Creating Objects and Fields
+
+Once your objects and fields are created:
+
+1. Retrieve the metadata into your IDE.
+2. Commit changes to Git.
+3. Ensure your team pulls the updated metadata before continuing development.
+
+This ensures the org and the repository remain in sync.
+
+---
+
+### Important Considerations
+
+When creating objects and fields:
+
+- Choose field types carefully (e.g., use Long Text Area for multi-line SOQL).
+- Mark required fields appropriately.
+- Configure Field-Level Security.
+- Assign object permissions via Permission Sets.
+- Add fields to page layouts so they are visible in the UI.
+
+You can verify all object configuration in:
 
 **Setup → Object Manager**
 
-Documentation:
-
-- [Custom Objects and Fields](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/object_reference.htm)
-
 ---
+
+### Documentation
+
+- [Custom Objects and Fields Overview](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/object_reference.htm)
+- [Field Types Reference](https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/field_types.htm)
 
 ## SOQL (Salesforce Object Query Language)
 
@@ -198,7 +248,7 @@ Documentation:
 
 Below are specific LWC base components, wire adapters, and Apex helpers that are especially useful for building QueryVault.
 
-> These are tools — not solutions. Use them to implement your own UX and server logic while respecting the guardrails in the challenge spec.
+> These are tools — not solutions. Use them to implement your own UX and server logic while respecting the guardrails in the challenge spec. Review [this doc](https://ergonus.sharepoint.com/:w:/s/ErgonsSalesForceSite/IQDmgYbJLvFNSJ2X7F_wxX-3Aagw3HDdDIni5W2KMlnbAzE?e=CeEAy8) for some LWC basics.
 
 ---
 
@@ -337,8 +387,6 @@ These tools may assist with inserting or testing sample data.
 
 ## Final Advice
 
-Do not attempt to recreate functionality manually in the Salesforce UI that is intended to be built as metadata.
-
 Design your solution thoughtfully:
 
 - Keep performance in mind.
@@ -347,3 +395,9 @@ Design your solution thoughtfully:
 - Keep the user experience clean and intuitive.
 
 Strong solutions prioritize clarity, safety, and maintainability over unnecessary complexity.
+
+Because of the scope of this challenge and general best practices, you are strongly encouraged to break this LWC into smaller, focused subcomponents. This approach promotes separation of concerns and allows multiple team members to work in parallel more effectively.
+
+However, this workflow can introduce coordination challenges when using Git/GitHub. To minimize conflicts, ensure that all changes are first deployed to the org. Then designate one team member to retrieve the latest metadata into their IDE (via Org Browser or “SFDX: Retrieve Source from Org”) and push those changes to GitHub. Other team members should then pull from GitHub to stay in sync.
+
+Repeat this process regularly to reduce merge conflicts and ensure everyone is working from the most up-to-date version of the project.
