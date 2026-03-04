@@ -81,4 +81,3 @@ Strong solutions will demonstrate:
 
 Build something you would be proud to ship internally.
 
-making a small change to test git integration.
