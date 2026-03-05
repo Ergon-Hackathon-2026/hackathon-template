@@ -48,7 +48,7 @@
 
 The Ergon Salesforce team wants a centralized, reusable library of “useful SOQL queries” that can be safely shared across Admins, Developers, and QA.
 
-Build **QueryVault**, an LWC-based CRUD app that lets users create, validate, maintain, and reuse SOQL queries tied to Salesforce objects, without relying on scattered docs.
+Build **QueryVault**, an LWC-based CRED app that lets users create, validate, maintain, and reuse SOQL queries tied to Salesforce objects, without relying on scattered docs.
 
 You are given the business intent and desired behaviors, but you must design the implementation details.
 
@@ -67,6 +67,8 @@ Implement a custom object to store reusable queries.
 - Records represent one reusable query.
 - The object includes all standard/custom fields outlined in #2.
 
+See **Resources → Working with Custom Objects and Fields** for how to create objects and fields.
+
 ---
 
 ### 2 Required Fields and Intended Meaning
@@ -83,6 +85,8 @@ Add fields to support naming, reuse, and clarity.
   - Provides verbose context and usage notes (not used as the record’s primary label).
 - A required **SObject API Name field** exists (`SObjectApiName__c`). (Highly recommend using a picklist where the options are all the API names)  
 *Hint: utilize anonymous apex script to gather all object API names and use this to create a new line delineated list to create the values.*
+
+*Hint: Label name and API name are two different things, and the Label name is what shows to the user in the UI.*
 
 ---
 
@@ -102,6 +106,8 @@ Build an LWC library UI that allows users to discover existing query records qui
   - SOQL text (optional)
 - Users can filter by SObject (using the selected object mechanism described below).
 - The list avoids unnecessarily loading heavy content (e.g., SOQL body) for every row unless it’s intentionally displayed.
+
+*Hint: Row action buttons on the data table can be utilized as one way to accomplish this.*
 
 ---
 
@@ -210,7 +216,7 @@ Users can open and view stored queries.
   - Cursor dragging and copying text is not sufficient.
 - View experience is accessible from the library list. (See MVP+ for additional ideas here)
 
-*Hint: Create/update UsefulQuery__c Lightning Record Page or see inline options on LWC*
+*Hint: Create/update UsefulQuery__c Lightning Record Page/Page Layout or see inline options on LWC*
 
 ---
 
@@ -264,7 +270,7 @@ Document how users should use the app.
 
 **Success Criteria**
 
-A short README in the docs folder of the repo or internal doc exists describing:
+A short README into docs folder of repo or internal doc exists describing:
 
 - What the app is for
 - How to find and copy a query
@@ -386,7 +392,7 @@ Teams must justify additional fields in documentation.
 - LWC Library + Editor
 - Assisted SObject selection (MVP)
 - SOQL syntax validation with safety guardrails
-- Full CRED in UI
+- Full CRUD in UI
 - Permission-based access control
 - Demo seed data + minimal guide
 
